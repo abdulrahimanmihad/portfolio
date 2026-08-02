@@ -1,0 +1,209 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode: the <html> element carries `.dark`. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-accent: #1a56db;
+  --color-accent-hover: #1e4fc4;
+  --color-accent-soft: #3b7dff;
+
+  --color-ink-950: #070a12;
+  --color-ink-900: #0b0f1a;
+  --color-ink-850: #10151f;
+  --color-ink-800: #151b28;
+  --color-ink-700: #1e2635;
+  --color-ink-600: #2a3448;
+
+  --color-paper-50: #ffffff;
+  --color-paper-100: #f7f9fc;
+  --color-paper-200: #eef2f8;
+  --color-paper-300: #dde4ee;
+}
+
+:root {
+  color-scheme: light;
+  --bg: var(--color-paper-50);
+  --bg-alt: var(--color-paper-100);
+  --surface: #ffffff;
+  --border: var(--color-paper-300);
+  --text: #0d1421;
+  --text-muted: #4b5768;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: var(--color-ink-900);
+  --bg-alt: var(--color-ink-850);
+  --surface: var(--color-ink-850);
+  --border: var(--color-ink-700);
+  --text: #eef2f8;
+  --text-muted: #97a3b6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor scrolling for the sticky navbar. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-soft);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .surface {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .muted {
+    color: var(--text-muted);
+  }
+
+  .rule {
+    border-color: var(--border);
+  }
+
+  /* Section shell: consistent horizontal rhythm across the page. */
+  .shell {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-alt);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.78rem;
+    line-height: 1.1rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .card-glow {
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-glow:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--color-accent) 70%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-glow:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Hero backdrop: a soft accent field that reads on both themes. */
+.hero-aura {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-aura::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: min(70rem, 140vw);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--color-accent) 26%, transparent) 0%,
+    transparent 62%
+  );
+  filter: blur(10px);
+  opacity: 0.55;
+}
+
+.dark .hero-aura::before {
+  opacity: 0.42;
+}
+
+.grid-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
+  --grid-line: rgba(13, 20, 33, 0.06);
+}
+
+.dark .grid-veil {
+  --grid-line: rgba(238, 242, 248, 0.045);
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  translate: 0 2px;
+  background-color: var(--color-accent-soft);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
