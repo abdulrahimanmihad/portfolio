@@ -4,51 +4,68 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  --color-accent: #1a56db;
-  --color-accent-hover: #1e4fc4;
-  --color-accent-soft: #3b7dff;
-
-  --color-ink-950: #070a12;
-  --color-ink-900: #0b0f1a;
-  --color-ink-850: #10151f;
-  --color-ink-800: #151b28;
-  --color-ink-700: #1e2635;
-  --color-ink-600: #2a3448;
-
-  --color-paper-50: #ffffff;
-  --color-paper-100: #f7f9fc;
-  --color-paper-200: #eef2f8;
-  --color-paper-300: #dde4ee;
+/*
+ * Semantic colours resolve at the element, so the same utility class is
+ * correct in light mode, dark mode and inside an `.inverse` block.
+ */
+@theme inline {
+  --color-ink: var(--text);
+  --color-paper: var(--bg);
+  --color-alt: var(--bg-alt);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border);
 }
 
 :root {
   color-scheme: light;
-  --bg: var(--color-paper-50);
-  --bg-alt: var(--color-paper-100);
-  --surface: #ffffff;
-  --border: var(--color-paper-300);
-  --text: #0d1421;
-  --text-muted: #4b5768;
+  --bg: #ffffff;
+  --bg-alt: #f5f5f5;
+  --border: #e5e5e5;
+  --text: #111111;
+  --text-muted: #707070;
+
+  --inverse-bg: #111111;
+  --inverse-bg-alt: #1a1a1a;
+  --inverse-border: #333333;
+  --inverse-text: #ffffff;
+  --inverse-text-muted: #a3a3a3;
 }
 
 .dark {
   color-scheme: dark;
-  --bg: var(--color-ink-900);
-  --bg-alt: var(--color-ink-850);
-  --surface: var(--color-ink-850);
-  --border: var(--color-ink-700);
-  --text: #eef2f8;
-  --text-muted: #97a3b6;
+  --bg: #0a0a0a;
+  --bg-alt: #141414;
+  --border: #262626;
+  --text: #f5f5f5;
+  --text-muted: #9a9a9a;
+
+  --inverse-bg: #f5f5f5;
+  --inverse-bg-alt: #ebebeb;
+  --inverse-border: #d4d4d4;
+  --inverse-text: #111111;
+  --inverse-text-muted: #6b6b6b;
+}
+
+/* A block whose colours flip against the current theme (contact + footer). */
+.inverse {
+  --bg: var(--inverse-bg);
+  --bg-alt: var(--inverse-bg-alt);
+  --border: var(--inverse-border);
+  --text: var(--inverse-text);
+  --text-muted: var(--inverse-text-muted);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Offset anchor scrolling for the sticky navbar. */
-    scroll-padding-top: 5.5rem;
+    /* Offset anchor scrolling for the fixed navbar. */
+    scroll-padding-top: 4rem;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -56,19 +73,21 @@
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    transition: background-color 0.35s ease, color 0.35s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+    background-color: var(--text);
+    color: var(--bg);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-soft);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
-    border-radius: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -86,124 +105,228 @@
 }
 
 @layer components {
-  .surface {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-  }
-
-  .muted {
-    color: var(--text-muted);
-  }
-
-  .rule {
-    border-color: var(--border);
-  }
-
-  /* Section shell: consistent horizontal rhythm across the page. */
+  /* Page container: wide and airy. */
   .shell {
     width: 100%;
-    max-width: 72rem;
+    max-width: 90rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .shell {
       padding-inline: 2rem;
     }
   }
 
+  @media (min-width: 1024px) {
+    .shell {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* Heavy, tight, uppercase headline style. */
+  .display {
+    font-weight: 800;
+    font-stretch: 90%;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+
+  /* Small tracked label. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-stretch: 105%;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+
+  /* Clips a hero line so it can slide up into view. */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 3.25rem;
+    padding-inline: 1.75rem;
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.3s var(--ease-out-expo);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background-color: var(--text);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--text) 78%, var(--bg));
+  }
+
+  .btn-ghost {
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--text);
+  }
+
+  .btn svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .btn:hover .arrow-right {
+    transform: translateX(3px);
+  }
+
+  /* Text link with an underline that draws in and an arrow that nudges. */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 0.25s ease;
+  }
+
+  .link-arrow:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .display .link-arrow {
+    font-weight: inherit;
+    gap: 0.15em;
+  }
+
+  .link-arrow svg {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .link-arrow:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  /* Navbar link with a drawn underline. */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background-color: var(--text);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .nav-link:hover,
+  .nav-link[aria-current] {
+    color: var(--text);
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  /* Spec-style tag. */
   .chip {
     display: inline-flex;
     align-items: center;
-    border-radius: 9999px;
     border: 1px solid var(--border);
-    background-color: var(--bg-alt);
-    padding: 0.3rem 0.7rem;
-    font-size: 0.78rem;
-    line-height: 1.1rem;
-    color: var(--text-muted);
+    border-radius: 2px;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--text);
+  }
+
+  /* Running ticker. Two copies of the list scroll by half the track width. */
+  .marquee {
+    overflow: hidden;
     white-space: nowrap;
   }
 
-  .card-glow {
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.3s ease, box-shadow 0.3s ease;
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 2.5rem;
+    animation: marquee 48s linear infinite;
+    will-change: transform;
   }
 
-  .card-glow:hover {
-    transform: translateY(-4px);
-    border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
-    box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--color-accent) 70%, transparent);
+  @media (min-width: 640px) {
+    .marquee-track {
+      gap: 3.5rem;
+    }
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .card-glow:hover {
-      transform: none;
+    .marquee {
+      white-space: normal;
     }
-  }
-}
-
-/* Hero backdrop: a soft accent field that reads on both themes. */
-.hero-aura {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.hero-aura::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  width: min(70rem, 140vw);
-  aspect-ratio: 1;
-  translate: -50% 0;
-  background: radial-gradient(
-    circle at center,
-    color-mix(in srgb, var(--color-accent) 26%, transparent) 0%,
-    transparent 62%
-  );
-  filter: blur(10px);
-  opacity: 0.55;
-}
-
-.dark .hero-aura::before {
-  opacity: 0.42;
-}
-
-.grid-veil {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
-  --grid-line: rgba(13, 20, 33, 0.06);
-}
-
-.dark .grid-veil {
-  --grid-line: rgba(238, 242, 248, 0.045);
-}
-
-.caret {
-  display: inline-block;
-  width: 2px;
-  translate: 0 2px;
-  background-color: var(--color-accent-soft);
-  animation: caret-blink 1.05s steps(1) infinite;
-}
-
-@keyframes caret-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
+    .marquee-track {
+      width: auto;
+      animation: none;
+    }
+    .marquee-track > [aria-hidden='true'] {
+      display: none;
+    }
+    .marquee-track > ul {
+      flex-wrap: wrap;
+      row-gap: 0.75rem;
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react'
+import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -7,8 +8,8 @@ import { useTheme } from './hooks'
 // Below-the-fold sections load as separate chunks after the hero paints.
 const Experience = lazy(() => import('./components/Experience'))
 const Projects = lazy(() => import('./components/Projects'))
-const Certifications = lazy(() => import('./components/Certifications'))
 const Skills = lazy(() => import('./components/Skills'))
+const Certifications = lazy(() => import('./components/Certifications'))
 const Education = lazy(() => import('./components/Education'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
@@ -22,10 +23,10 @@ export default function App() {
   const { theme, toggle } = useTheme()
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-paper"
       >
         Skip to content
       </a>
@@ -38,8 +39,8 @@ export default function App() {
         <Suspense fallback={<Placeholder />}>
           <Experience />
           <Projects />
-          <Certifications />
           <Skills />
+          <Certifications />
           <Education />
           <Contact />
         </Suspense>
@@ -48,6 +49,6 @@ export default function App() {
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
-    </>
+    </MotionConfig>
   )
 }

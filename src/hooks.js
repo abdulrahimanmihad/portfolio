@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+const THEME_KEY = 'ui-theme'
+
 export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(
     () =>
@@ -17,6 +19,10 @@ export function usePrefersReducedMotion() {
   return reduced
 }
 
+/**
+ * Light by default. Dark only when the visitor has toggled it, which is the
+ * only time the preference is written to storage.
+ */
 export function useTheme() {
   const [theme, setTheme] = useState(() =>
     typeof document !== 'undefined' &&
@@ -29,63 +35,22 @@ export function useTheme() {
     document.documentElement.classList.toggle('dark', theme === 'dark')
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#0B0F1A' : '#FFFFFF')
-    try {
-      localStorage.setItem('theme', theme)
-    } catch {
-      /* storage unavailable — the toggle still works for this session */
-    }
+      ?.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#ffffff')
   }, [theme])
 
-  const toggle = useCallback(
-    () => setTheme((t) => (t === 'dark' ? 'light' : 'dark')),
-    [],
-  )
+  const toggle = useCallback(() => {
+    setTheme((t) => {
+      const next = t === 'dark' ? 'light' : 'dark'
+      try {
+        localStorage.setItem(THEME_KEY, next)
+      } catch {
+        /* storage unavailable: the toggle still works for this session */
+      }
+      return next
+    })
+  }, [])
 
   return { theme, toggle }
-}
-
-/**
- * Types each phrase out, holds it, deletes it, then moves to the next.
- * With reduced motion the phrases simply cross-fade at a slow interval.
- */
-export function useTypewriter(phrases, { typeMs = 55, deleteMs = 28, holdMs = 1600 } = {}) {
-  const reduced = usePrefersReducedMotion()
-  const [index, setIndex] = useState(0)
-  const [text, setText] = useState(phrases[0] ?? '')
-  const [deleting, setDeleting] = useState(false)
-
-  useEffect(() => {
-    if (reduced) {
-      setText(phrases[index] ?? '')
-      const id = setTimeout(() => setIndex((i) => (i + 1) % phrases.length), 2600)
-      return () => clearTimeout(id)
-    }
-
-    const full = phrases[index] ?? ''
-
-    if (!deleting && text === full) {
-      const id = setTimeout(() => setDeleting(true), holdMs)
-      return () => clearTimeout(id)
-    }
-
-    if (deleting && text === '') {
-      setDeleting(false)
-      setIndex((i) => (i + 1) % phrases.length)
-      return undefined
-    }
-
-    const id = setTimeout(
-      () =>
-        setText((current) =>
-          deleting ? full.slice(0, current.length - 1) : full.slice(0, current.length + 1),
-        ),
-      deleting ? deleteMs : typeMs,
-    )
-    return () => clearTimeout(id)
-  }, [text, deleting, index, phrases, reduced, typeMs, deleteMs, holdMs])
-
-  return text
 }
 
 /** Counts from 0 to `target` once the element scrolls into view. */
@@ -159,7 +124,7 @@ export function useActiveSection(ids) {
 
     const measure = () => {
       frame = 0
-      // The line just below the sticky navbar decides the active section.
+      // The line just below the fixed navbar decides the active section.
       const line = window.scrollY + 96
       let current = ''
 

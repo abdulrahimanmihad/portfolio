@@ -3,50 +3,36 @@ import { Reveal, Section } from './ui'
 
 export default function Education() {
   return (
-    <Section id="education" eyebrow="Education" title="Academic background">
-      <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
-        <Reveal>
-          <article className="surface h-full rounded-2xl p-7 sm:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-3">
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight sm:text-xl">
-                  {education.degree}
-                </h3>
-                <p className="muted mt-1.5 text-sm">
-                  {education.school} · {education.location}
-                </p>
-              </div>
-              <p className="chip font-mono">{education.period}</p>
-            </div>
-            <ul className="muted mt-6 space-y-2 text-sm leading-relaxed">
+    <Section id="education" index="06" label="Education" title="Background.">
+      <div className="border-b border-line">
+        <Reveal className="grid gap-4 border-t border-line py-8 lg:grid-cols-12 lg:gap-8">
+          <p className="eyebrow lg:col-span-3">{education.period}</p>
+          <div className="lg:col-span-9">
+            <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{education.degree}</h3>
+            <p className="mt-2 text-muted">
+              {education.school}, {education.location}
+            </p>
+            <ul className="mt-5 space-y-2 text-sm leading-relaxed text-muted">
               {education.details.map((d) => (
-                <li key={d} className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
-                  />
-                  {d}
+                <li key={d} className="flex gap-4">
+                  <span aria-hidden="true" className="mt-[0.8em] h-px w-4 shrink-0 bg-muted" />
+                  <span>{d}</span>
                 </li>
               ))}
             </ul>
-          </article>
+          </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <article className="surface h-full rounded-2xl p-7 sm:p-8">
-            <h3 className="flex items-center gap-3 text-sm font-semibold tracking-tight">
-              <span aria-hidden="true" className="h-4 w-1 rounded-full bg-accent" />
-              Languages
-            </h3>
-            <dl className="mt-5 space-y-3">
-              {spokenLanguages.map((lang) => (
-                <div key={lang.name} className="flex items-baseline justify-between gap-4">
-                  <dt className="text-sm font-medium">{lang.name}</dt>
-                  <dd className="muted font-mono text-xs">{lang.level}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
+        <Reveal delay={0.05} className="grid gap-4 border-t border-line py-8 lg:grid-cols-12 lg:gap-8">
+          <p className="eyebrow lg:col-span-3">Languages</p>
+          <dl className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-9">
+            {spokenLanguages.map((lang) => (
+              <div key={lang.name}>
+                <dt className="font-medium">{lang.name}</dt>
+                <dd className="mt-0.5 text-sm text-muted">{lang.level}</dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
     </Section>

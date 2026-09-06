@@ -1,32 +1,38 @@
 import { profile } from '../data'
-import { GitHubIcon, LinkedInIcon, MailIcon } from './icons'
+import { ArrowUpIcon } from './icons'
 
 export default function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid var(--border)' }}>
-      <div className="shell flex flex-col items-center justify-between gap-5 py-9 sm:flex-row">
-        <p className="muted text-sm">
-          © {new Date().getFullYear()} {profile.name} · {profile.title}
+    <footer className="inverse border-t border-line">
+      <div className="shell flex flex-col gap-6 py-8 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-muted">
+          © {new Date().getFullYear()} {profile.name}
         </p>
-        <ul className="flex items-center gap-2">
+
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {[
-            { href: `mailto:${profile.email}`, Icon: MailIcon, label: 'Email' },
-            { href: profile.linkedin, Icon: LinkedInIcon, label: 'LinkedIn' },
-            { href: profile.github, Icon: GitHubIcon, label: 'GitHub' },
-          ].map(({ href, Icon, label }) => (
+            { href: profile.linkedin, label: 'LinkedIn' },
+            { href: profile.github, label: 'GitHub' },
+            { href: `mailto:${profile.email}`, label: 'Email' },
+            { href: profile.cv, label: 'CV', download: true },
+          ].map(({ href, label, download }) => (
             <li key={label}>
               <a
                 href={href}
+                {...(download ? { download: true } : {})}
                 {...(href.startsWith('http') ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-                aria-label={label}
-                className="muted grid h-9 w-9 place-items-center rounded-lg transition-colors hover:text-accent"
-                style={{ border: '1px solid var(--border)' }}
+                className="font-medium text-muted transition-colors hover:text-ink"
               >
-                <Icon width={17} height={17} />
+                {label}
               </a>
             </li>
           ))}
         </ul>
+
+        <a href="#top" className="link-arrow self-start text-muted hover:text-ink sm:self-auto">
+          Back to top
+          <ArrowUpIcon width={15} height={15} />
+        </a>
       </div>
     </footer>
   )

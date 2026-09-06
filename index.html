@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="apple-touch-icon" href="./favicon.svg" />
-    <meta name="theme-color" content="#0B0F1A" />
+    <meta name="theme-color" content="#ffffff" />
 
     <title>Abdul Rahiman Mihad — AI Engineer</title>
     <meta
       name="description"
-      content="AI Engineer in Abu Dhabi, UAE building production real-time voice AI, agentic LLM systems, RAG pipelines and computer vision MLOps."
+      content="AI Engineer in Abu Dhabi, UAE. Builds and launches production AI products: real-time voice AI, LLM systems, RAG, computer vision and MLOps across AWS, Azure and Google Cloud."
     />
     <meta name="author" content="Abdul Rahiman Mihad" />
     <link rel="canonical" href="https://abdulrahimanmihad.github.io/portfolio/" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Abdul Rahiman Mihad — AI Engineer" />
     <meta
       property="og:description"
-      content="AI Engineer in Abu Dhabi, UAE building production real-time voice AI, agentic LLM systems, RAG pipelines and computer vision MLOps."
+      content="AI Engineer in Abu Dhabi, UAE. Builds and launches production AI products: real-time voice AI, LLM systems, RAG, computer vision and MLOps across AWS, Azure and Google Cloud."
     />
     <meta property="og:url" content="https://abdulrahimanmihad.github.io/portfolio/" />
     <meta property="og:image" content="https://abdulrahimanmihad.github.io/portfolio/og-image.png" />
@@ -32,14 +32,14 @@
     <meta name="twitter:title" content="Abdul Rahiman Mihad — AI Engineer" />
     <meta
       name="twitter:description"
-      content="AI Engineer in Abu Dhabi, UAE building production real-time voice AI, agentic LLM systems, RAG pipelines and computer vision MLOps."
+      content="AI Engineer in Abu Dhabi, UAE. Builds and launches production AI products: real-time voice AI, LLM systems, RAG, computer vision and MLOps across AWS, Azure and Google Cloud."
     />
     <meta name="twitter:image" content="https://abdulrahimanmihad.github.io/portfolio/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap"
       rel="stylesheet"
     />
 
@@ -62,24 +62,26 @@
           "https://github.com/abdulrahimanmihad"
         ],
         "knowsAbout": [
-          "Real-Time Conversational AI",
-          "Agentic Systems",
+          "Generative AI",
+          "Large Language Models",
+          "Conversational AI",
+          "Voice AI",
+          "AI Agents",
           "Retrieval Augmented Generation",
-          "MLOps",
-          "Computer Vision"
+          "Computer Vision",
+          "Natural Language Processing",
+          "MLOps"
         ]
       }
     </script>
 
     <script>
-      // Apply the stored theme before first paint to avoid a flash of the wrong theme.
+      // Light by default. Apply a stored dark preference before first paint to avoid a flash.
       (function () {
         try {
-          var stored = localStorage.getItem('theme');
-          var dark = stored
-            ? stored === 'dark'
-            : !window.matchMedia('(prefers-color-scheme: light)').matches;
-          document.documentElement.classList.toggle('dark', dark);
+          if (localStorage.getItem('ui-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
         } catch (e) {}
       })();
     </script>

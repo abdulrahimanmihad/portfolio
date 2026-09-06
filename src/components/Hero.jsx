@@ -1,140 +1,80 @@
 import { motion } from 'framer-motion'
 import { profile } from '../data'
-import { useTypewriter } from '../hooks'
-import { ArrowIcon, DownloadIcon, GitHubIcon, LinkedInIcon, PinIcon } from './icons'
+import { EASE, Marquee } from './ui'
+import { ArrowIcon, DownloadIcon } from './icons'
 
-const rise = {
-  hidden: { opacity: 0, y: 24 },
-  show: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] },
-  }),
-}
+const fade = (delay) => ({
+  initial: { opacity: 0, y: 14 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: EASE },
+})
 
 export default function Hero() {
-  const typed = useTypewriter(profile.typingPhrases)
-
   return (
-    <section
-      id="top"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16"
-    >
-      <div className="hero-aura" aria-hidden="true" />
-      <div className="grid-veil" aria-hidden="true" />
-
-      <div className="shell relative">
-        <div className="max-w-3xl">
-          <motion.p
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={0}
-            className="muted mb-6 inline-flex max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl px-3 py-1.5 text-xs font-medium sm:rounded-full"
-            style={{ border: '1px solid var(--border)', backgroundColor: 'var(--bg-alt)' }}
-          >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+    <section id="top" className="flex min-h-[100svh] flex-col justify-end pt-24">
+      <div className="shell pb-12 sm:pb-16">
+        <motion.p
+          {...fade(0.05)}
+          className="eyebrow flex flex-wrap items-center gap-x-4 gap-y-2 text-ink"
+        >
+          <span>
+            {profile.name} · {profile.title} · {profile.location}
+          </span>
+          <span className="inline-flex items-center gap-2 text-muted">
+            <span aria-hidden="true" className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ink opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ink" />
             </span>
-            {profile.title} · {profile.tagline}
-          </motion.p>
+            {profile.availability}
+          </span>
+        </motion.p>
 
-          <motion.h1
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={1}
-            className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            {profile.headline}
-          </motion.h1>
-
-          <motion.p
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={2}
-            className="mt-6 flex flex-wrap items-baseline gap-x-2 gap-y-1 font-mono text-base sm:text-lg"
-          >
-            <span className="muted">Building</span>
-            <span className="font-medium text-accent" aria-live="polite">
-              {typed}
-              <span className="caret ml-0.5 h-[1.05em]" aria-hidden="true" />
+        <h1 className="display mt-8 text-[clamp(3.25rem,11.5vw,10.5rem)] sm:mt-10">
+          {profile.headlineLines.map((line, i) => (
+            <span key={line} className="mask-line">
+              <motion.span
+                className="block"
+                initial={{ y: '110%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, delay: 0.1 + i * 0.09, ease: EASE }}
+              >
+                {line}
+              </motion.span>
             </span>
-          </motion.p>
+          ))}
+        </h1>
 
+        <div className="mt-10 grid gap-8 md:grid-cols-12 md:items-end sm:mt-14">
           <motion.p
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={3}
-            className="muted mt-6 max-w-2xl text-base leading-relaxed sm:text-lg"
+            {...fade(0.45)}
+            className="max-w-xl text-base leading-relaxed text-muted sm:text-lg md:col-span-7 lg:col-span-6"
           >
             {profile.subline}
           </motion.p>
 
           <motion.div
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={4}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            {...fade(0.55)}
+            className="flex flex-wrap gap-3 md:col-span-5 md:justify-end lg:col-span-6"
           >
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-[var(--color-accent-hover)] hover:shadow-[0_12px_30px_-12px_var(--color-accent)]"
-            >
-              View My Work
-              <ArrowIcon
-                width={17}
-                height={17}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
+            <a href="#projects" className="btn btn-primary">
+              View work
+              <ArrowIcon width={17} height={17} className="arrow-right" />
             </a>
-            <a
-              href={profile.cv}
-              download
-              className="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
-              style={{ border: '1px solid var(--border)', backgroundColor: 'var(--surface)' }}
-            >
+            <a href={profile.cv} download className="btn btn-ghost">
               <DownloadIcon width={17} height={17} />
               Download CV
             </a>
           </motion.div>
-
-          <motion.div
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            custom={5}
-            className="muted mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm"
-          >
-            <span className="inline-flex items-center gap-2">
-              <PinIcon width={16} height={16} />
-              {profile.location}
-            </span>
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 transition-colors hover:text-accent"
-            >
-              <LinkedInIcon width={16} height={16} />
-              LinkedIn
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 transition-colors hover:text-accent"
-            >
-              <GitHubIcon width={16} height={16} />
-              GitHub
-            </a>
-          </motion.div>
         </div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+      >
+        <Marquee items={profile.competencies} />
+      </motion.div>
     </section>
   )
 }

@@ -49,16 +49,21 @@ export const ArrowIcon = (p) => (
   </svg>
 )
 
-export const DownloadIcon = (p) => (
+export const ArrowUpRightIcon = (p) => (
   <svg {...base} {...p}>
-    <path d="M12 3v12M7 11l5 5 5-5M4 20h16" />
+    <path d="M7 17 17 7M8 7h9v9" />
   </svg>
 )
 
-export const ExternalIcon = (p) => (
+export const ArrowUpIcon = (p) => (
   <svg {...base} {...p}>
-    <path d="M14 4h6v6M20 4l-8.5 8.5" />
-    <path d="M19 14.5V19a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V7a1.5 1.5 0 0 1 1.5-1.5H10" />
+    <path d="M12 19V5M6 11l6-6 6 6" />
+  </svg>
+)
+
+export const DownloadIcon = (p) => (
+  <svg {...base} {...p}>
+    <path d="M12 3v12M7 11l5 5 5-5M4 20h16" />
   </svg>
 )
 
@@ -84,11 +89,5 @@ export const MenuIcon = (p) => (
 export const CloseIcon = (p) => (
   <svg {...base} {...p}>
     <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-)
-
-export const CheckIcon = (p) => (
-  <svg {...base} {...p}>
-    <path d="m4.5 12.5 5 5 10-11" />
   </svg>
 )
