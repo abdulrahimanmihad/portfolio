@@ -23,16 +23,31 @@ export default function Projects() {
             <div className="lg:col-span-5">
               <p className="eyebrow mb-4">{project.category}</p>
               <h3 className="display text-[clamp(1.75rem,3.2vw,2.5rem)]">{project.name}</h3>
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="link-arrow mt-6 text-sm"
-                >
-                  Live demo
-                  <ArrowUpRightIcon width={15} height={15} />
-                </a>
+              {(project.demo || project.repo) && (
+                <div className="mt-6 flex flex-wrap gap-6 text-sm">
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="link-arrow"
+                    >
+                      Live demo
+                      <ArrowUpRightIcon width={15} height={15} />
+                    </a>
+                  )}
+                  {project.repo && (
+                    <a
+                      href={project.repo}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="link-arrow"
+                    >
+                      GitHub
+                      <ArrowUpRightIcon width={15} height={15} />
+                    </a>
+                  )}
+                </div>
               )}
             </div>
 

@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Abdul Rahiman Mihad',
   title: 'AI Engineer',
-  tagline: 'Artificial Intelligence & Machine Learning',
+  tagline: 'LLM Agents · Real-Time Voice AI · Full-Stack & Cloud · MLOps',
   location: 'Abu Dhabi, UAE',
   availability: 'Available immediately',
   email: 'abdulrahimanmihad@gmail.com',
@@ -13,22 +13,23 @@ export const profile = {
   // Rendered uppercase, one line each, in the hero.
   headlineLines: ['AI systems', 'that talk,', 'think & ship.'],
   subline:
-    'AI Engineer at HireUp, where I built a real-time voice AI interviewer that is live in production. Machine learning, generative AI, computer vision and MLOps across AWS, Microsoft Azure and Google Cloud.',
+    'Full-Stack AI Engineer building Vendoor, a B2B supplier discovery and tender platform for the UAE F&B market. Previously built Alpha, a real-time AI voice interviewer, at HireUp. Generative AI, agentic LLM systems, RAG, computer vision and MLOps on AWS.',
   // Runs in the ticker beneath the hero.
   competencies: [
     'Generative AI',
     'Large Language Models',
-    'Voice AI',
+    'LLM Agents & Tool Use',
+    'Real-Time Voice AI',
     'Conversational AI',
-    'AI Agents',
     'RAG',
-    'Computer Vision',
+    'Vector Search',
     'Natural Language Processing',
-    'MLOps',
+    'Computer Vision',
     'Prompt Engineering',
     'LLM Fine-Tuning',
-    'Model Deployment',
-    'Cloud Computing',
+    'Backend Architecture',
+    'Cloud Architecture',
+    'MLOps',
   ],
 }
 
@@ -42,69 +43,129 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    'I build and launch production AI products. At HireUp, a Japan-based technology company, I built the flagship product: a real-time voice AI interviewer that speaks with job candidates, asks interview questions, understands their answers and responds naturally. It is running live today.',
-    'My work spans machine learning, generative AI and large language models, natural language processing, computer vision and MLOps, with cloud experience across AWS, Microsoft Azure and Google Cloud. I am known for improving AI accuracy, cutting operating costs and delivering systems that stay reliable in production.',
+    'I am an AI engineer building Vendoor, a B2B supplier discovery and tender platform for the UAE food and beverage market. I own the product end to end: four production LLM agents, WhatsApp and email automation, and a FastAPI and PostgreSQL backend on AWS, taken from MVP to production in a founder-led team.',
+    'Before that I built Alpha at HireUp, a full-duplex real-time AI voice interviewer, lifting navigation accuracy from about 80% to 100%. My strengths are generative AI, agentic LLM systems, RAG, NLP, computer vision and MLOps. Microsoft Azure certified, based in the UAE and available immediately.',
   ],
   facts: [
-    { label: 'Role', value: 'AI/ML Engineer, HireUp' },
+    { label: 'Role', value: 'Full-Stack AI Engineer, Vendoor' },
+    { label: 'Previously', value: 'AI/ML Engineer, HireUp' },
     { label: 'Based in', value: 'Abu Dhabi, UAE' },
-    { label: 'Status', value: 'Available immediately' },
-    { label: 'Focus', value: 'Voice AI, LLMs, RAG, computer vision, MLOps' },
-    { label: 'Cloud', value: 'AWS, Microsoft Azure, Google Cloud' },
+    { label: 'Status', value: 'Available immediately, UAE visit visa' },
+    { label: 'Focus', value: 'LLM agents, real-time voice AI, RAG, full-stack and cloud' },
     { label: 'Certified', value: 'Microsoft Azure AI-900, AZ-900, DP-900' },
   ],
 }
 
 export const experience = [
   {
-    role: 'AI/ML Engineer',
-    company: 'HireUp',
-    companyUrl: 'https://app.hireup.now/',
-    location: 'Japan HQ, remote',
-    period: 'May 2026 – Present',
+    role: 'Full-Stack AI Engineer',
+    company: 'Vendoor',
+    companyUrl: null,
+    location: 'UAE · Early-stage startup, founder-led team',
+    period: 'Jul 2026 – Present',
     summary:
-      'Built the company’s flagship AI product: a real-time voice AI interviewer that speaks with job candidates, asks interview questions, understands their answers and responds naturally. Now running live in production, built day to day with an international team across time zones.',
+      'Vendoor is a B2B supplier discovery and tender platform for the UAE F&B market. I own the product end to end, from the buyer-facing product and founder console to the AI pipeline, messaging and cloud infrastructure, and took it from MVP to production.',
     // Big-number strip. Each entry is either an animated `value` or a static `text`.
     stats: [
-      { value: 100, suffix: '%', label: 'Navigation accuracy', note: 'up from roughly 80%' },
-      { value: 1.5, suffix: 's', decimals: 1, label: 'Faster response start-up', note: 'per conversation turn' },
-      { value: 0, label: 'Extra LLM calls per turn', note: 'after the cost redesign' },
-      { text: '0/6', label: 'Regression failures', note: 'down from 2/6' },
+      { value: 4, label: 'Production LLM agents', note: 'with enforced structured output' },
+      { value: 5000, label: 'SKUs per supplier catalog', note: 'turned into line items by the agents' },
+      { value: 86, label: 'API routes migrated', note: 'Node.js and MySQL to FastAPI and PostgreSQL' },
+      { value: 0, label: 'Downtime at cut-over', note: 'under a CI-enforced API contract' },
     ],
     highlights: [
       {
-        title: 'Improved interview accuracy from roughly 80% to 100%',
+        title: 'Built the platform end to end',
         body:
-          'Redesigned the question-navigation logic around a deterministic resolver instead of LLM position arithmetic, verified across live interview runs and automated tests.',
+          'From the buyer-facing product and founder console to the AI pipeline, messaging and cloud infrastructure, taking Vendoor from MVP to production.',
       },
       {
-        title: 'Reduced AI operating costs significantly',
+        title: 'Four production LLM agents with enforced structured output',
         body:
-          'Redesigned how the system uses large language models: a one-time JD and CV extraction replaced vector-store retrieval, and a code-built question log replaced per-turn LLM summarisation, removing unnecessary processing from every conversation turn.',
+          'They turn buyer specs, spreadsheets and 5,000-SKU supplier catalogs into line items, and parse free-text supplier quotes with per-line confidence.',
       },
       {
-        title: 'Made conversations feel natural and human',
+        title: 'Automated supplier outreach and quote collection',
         body:
-          'Candidates can interrupt the AI mid-sentence and it responds appropriately, using client-side voice detection, echo rejection and a behavioural interruption ladder. Pre-connected streaming speech-to-text and text-to-speech cut response start-up delay by about 1.5 seconds.',
+          'Runs over the WhatsApp Cloud API and email, with HMAC-verified webhooks and atomic ingestion so retries never duplicate a quote and no message waits on a human.',
       },
       {
-        title: 'Built an automated quality testing system',
+        title: 'Pricing normalisation and semantic catalog matching',
         body:
-          'Replays complete interviews in seconds against the real decision engine, combining deterministic scenario checks with LLM judges, so every software update ships with product quality protected.',
+          'Voyage AI embeddings on pgvector make every supplier price comparable at the buyer’s quantity, and match aubergine to eggplant.',
+      },
+      {
+        title: 'Migrated the backend with a zero-downtime cut-over',
+        body:
+          'From Node.js and MySQL to Python 3.12, FastAPI and PostgreSQL on AWS (App Runner, ECS Fargate, RDS, S3, SQS), porting all 86 API routes under a CI-enforced contract.',
+      },
+    ],
+    tech: [
+      'Python 3.12',
+      'FastAPI',
+      'PostgreSQL',
+      'pgvector',
+      'SQLAlchemy',
+      'Alembic',
+      'Voyage AI',
+      'WhatsApp Cloud API',
+      'Resend',
+      'Supabase Auth',
+      'AWS App Runner',
+      'ECS Fargate',
+      'RDS',
+      'S3',
+      'SQS',
+      'GitHub Actions',
+      'Docker',
+    ],
+  },
+  {
+    role: 'AI/ML Engineer',
+    company: 'HireUp',
+    companyUrl: 'https://app.hireup.now/',
+    location: 'Japan HQ · Remote',
+    period: 'May 2026 – Jul 2026',
+    summary:
+      'Built Alpha, a full-duplex real-time AI voice interviewer, for a technology company headquartered in Japan, working remotely with an international team across time zones.',
+    stats: [
+      { value: 100, suffix: '%', label: 'Navigation accuracy', note: 'up from about 80%' },
+      { value: 1.5, suffix: 's', decimals: 1, label: 'Less start-up latency', note: 'on the voice pipeline' },
+      { value: 0, label: 'Redundant LLM calls per turn', note: 'after the turn-loop redesign' },
+    ],
+    highlights: [
+      {
+        title: 'Designed the full-duplex real-time voice pipeline',
+        body:
+          'WebSocket streaming, concurrent asyncio loops, Deepgram Flux speech-to-text, WebRTC voice detection and streaming text-to-speech, cutting start-up latency by about 1.5 seconds.',
+      },
+      {
+        title: 'Raised interview navigation accuracy from about 80% to 100%',
+        body:
+          'Replaced non-deterministic LLM routing with a deterministic resolver, verified across live interviews and automated tests.',
+      },
+      {
+        title: 'Significantly cut LLM operating cost',
+        body:
+          'Redesigned the conversation turn loop to remove redundant model calls from every turn.',
+      },
+      {
+        title: 'Built an automated evaluation harness',
+        body:
+          'Replays full interviews in seconds, with MLflow and LangSmith tracing to catch regressions across releases.',
       },
     ],
     tech: [
       'Python',
-      'LangGraph',
-      'LangChain',
-      'OpenAI',
-      'AWS',
-      'FastAPI',
+      'asyncio',
       'WebSockets',
-      'Deepgram',
+      'LangGraph',
+      'OpenAI',
+      'Deepgram Flux STT',
+      'WebRTC VAD',
+      'Streaming TTS',
+      'AWS',
       'Redis',
       'PostgreSQL',
-      'Docker',
       'MLflow',
       'LangSmith',
     ],
@@ -113,51 +174,55 @@ export const experience = [
 
 export const projects = [
   {
-    name: 'Self-Correcting AI Question Answering',
+    name: 'Self-Corrective RAG System',
     category: 'Generative AI · RAG · AWS',
     demo: 'http://3.110.62.109:8501/',
+    repo: null,
     blurb:
-      'An AI system that answers questions from documents, then checks and corrects its own answers before responding.',
+      'A self-correcting multi-agent pipeline that grades its documents, checks for hallucinations and rewrites queries before it answers.',
     points: [
-      'Reached 92% accuracy and cut wrong answers by 40% with iterative document grading, hallucination detection and autonomous query rewriting in LangGraph.',
-      'Llama 3.1 70B on Amazon Bedrock at under 1.5 seconds per answer, with MLflow tracking tokens, latency and cost per request.',
-      'Deployed live on AWS EC2 with FastAPI and Streamlit, with agent capabilities exposed as an MCP server.',
+      'Reduced hallucinations by 40% and reached 92% accuracy on Llama 3.1 70B via AWS Bedrock, with sub-1.5s responses.',
+      'MLflow tracks tokens, latency and cost per request, and agent capabilities are exposed as an MCP server.',
+      'Deployed on AWS with FastAPI and Docker.',
     ],
     stats: [
+      { value: 40, suffix: '%', label: 'fewer hallucinations' },
       { value: 92, suffix: '%', label: 'accuracy' },
-      { value: 40, suffix: '%', label: 'fewer wrong answers' },
     ],
-    tags: ['Python', 'LangGraph', 'AWS Bedrock', 'EC2', 'FastAPI', 'MLflow', 'Docker', 'MCP'],
+    tags: ['LangGraph', 'AWS Bedrock', 'FastAPI', 'MLflow', 'Docker', 'MCP'],
   },
   {
-    name: 'AI Litter Detection System',
+    name: 'End-to-End Litter Detection System',
     category: 'Computer Vision · Machine Learning',
     demo: 'https://litter-detection.duckdns.org/',
+    repo: null,
     blurb:
-      'An AI camera system that automatically detects litter in photos, published as a live web application anyone can try.',
+      'A small-object detection system trained on hand-annotated data and deployed as a live Streamlit app on a reproducible MLOps pipeline.',
     points: [
-      'Trained on 1,500+ images I labelled by hand in CVAT, improving small-object detection by 15%.',
-      'High-resolution scaling, Mosaic and MixUp augmentation, and automated oversampling for severe class imbalance.',
-      'Fully reproducible MLOps workflow: 50+ tracked experiments with DVC dataset versioning, DagsHub and MLflow.',
+      'Improved small-object detection accuracy (mAP) by 15% on 1,500+ images annotated by hand in CVAT.',
+      '50+ tracked experiments with DVC dataset versioning and MLflow.',
+      'Live Streamlit app anyone can try.',
     ],
     stats: [
-      { value: 15, suffix: '%', label: 'better small-object detection' },
-      { value: 1500, suffix: '+', label: 'hand-labelled images' },
+      { value: 15, suffix: '%', label: 'mAP gain' },
+      { value: 1500, suffix: '+', label: 'hand-annotated images' },
+      { value: 50, suffix: '+', label: 'tracked experiments' },
     ],
-    tags: ['Python', 'YOLOv8', 'PyTorch', 'OpenCV', 'CVAT', 'DVC', 'MLflow', 'Streamlit'],
+    tags: ['YOLOv8', 'PyTorch', 'OpenCV', 'CVAT', 'DVC', 'MLflow', 'Streamlit'],
   },
   {
-    name: 'Language Model Built from Scratch',
+    name: 'Character-Level Language Model from Scratch',
     category: 'Deep Learning · PyTorch',
     demo: null,
+    repo: 'https://github.com/abdulrahimanmihad',
     blurb:
-      'A small language model built completely from scratch to master how systems like ChatGPT work internally.',
+      'A character-level language model and a custom automatic differentiation engine, built from first principles to understand how modern LLMs train and generate text.',
     points: [
       'Custom autograd engine with dynamic graph traversal and gradient caching.',
-      'MLPs, backpropagation and SGD implemented by hand, then extended to CNN classifiers in TensorFlow and Keras.',
+      'MLPs, backpropagation and SGD implemented by hand in PyTorch and NumPy.',
     ],
     stats: [],
-    tags: ['PyTorch', 'NumPy', 'TensorFlow', 'Keras'],
+    tags: ['PyTorch', 'NumPy', 'Custom autograd'],
   },
 ]
 
@@ -182,7 +247,7 @@ export const certifications = [
         url: 'https://coursera.org/share/0bd561bc8089ecff32f0181159988eba',
       },
       {
-        name: 'AI Agents: RAG and LangChain',
+        name: 'AI Agents with RAG and LangChain',
         url: 'https://coursera.org/share/51e48d68fe7fa59272b1f5916124afe3',
       },
       {
@@ -190,7 +255,7 @@ export const certifications = [
         url: 'https://coursera.org/share/53c6a0b4dd5fc2de6f0ec72bbf84e408',
       },
       {
-        name: 'Language Modeling with Transformers',
+        name: 'Language Models with Transformers',
         url: 'https://coursera.org/share/afe132f03837d87e23e0f34d996e93b7',
       },
       {
@@ -198,7 +263,7 @@ export const certifications = [
         url: 'https://coursera.org/share/181ba7bf3e84a290e10ec86e9258851f',
       },
       {
-        name: 'Exploratory Data Analysis for ML',
+        name: 'EDA for Machine Learning',
         url: 'https://coursera.org/share/85ee3593b0fd25f4079f4d4d4965dc82',
       },
     ],
@@ -214,59 +279,88 @@ export const certifications = [
 
 export const skills = [
   {
-    group: 'AI & ML',
+    group: 'AI / LLM',
     items: [
-      'Artificial Intelligence',
-      'Machine Learning',
-      'Deep Learning',
-      'Generative AI',
-      'Large Language Models',
-      'Natural Language Processing',
-      'Computer Vision',
+      'Tool Use & Structured Output',
       'RAG',
-      'AI Agents',
-      'Prompt Engineering',
-      'Fine-Tuning',
+      'Embeddings (Voyage AI, pgvector)',
+      'LangGraph',
+      'LangChain',
+      'Hugging Face',
+      'MCP',
+      'PEFT / LoRA',
+      'PyTorch',
+      'TensorFlow',
+      'NLP',
+      'Computer Vision',
     ],
   },
   {
-    group: 'Programming',
+    group: 'Real-Time AI',
     items: [
-      'Python',
-      'SQL',
-      'JavaScript',
-      'PyTorch',
-      'TensorFlow',
-      'Scikit-learn',
-      'Hugging Face',
-      'LangChain',
-      'LangGraph',
+      'WebSockets',
+      'asyncio',
+      'Deepgram STT & TTS',
+      'WebRTC VAD',
+      'Web Audio API',
+      'Streaming Pipelines',
+    ],
+  },
+  {
+    group: 'Backend',
+    items: [
+      'Python 3.12',
       'FastAPI',
-      'REST APIs',
+      'SQLAlchemy',
+      'PostgreSQL',
+      'pgvector',
+      'Alembic',
+      'Node.js',
+      'Express',
+      'MySQL',
+      'Redis',
+    ],
+  },
+  {
+    group: 'Frontend',
+    items: ['JavaScript', 'HTML', 'CSS', 'Tailwind', 'Streamlit'],
+  },
+  {
+    group: 'DevOps',
+    items: [
+      'Docker',
+      'GitHub Actions (OIDC)',
+      'CI/CD',
+      'pytest',
+      'ruff',
+      'MLflow',
+      'LangSmith',
+      'DVC',
+      'Model Monitoring',
     ],
   },
   {
     group: 'Cloud',
     items: [
-      'Amazon Web Services',
-      'Microsoft Azure',
-      'Google Cloud Platform',
+      'AWS App Runner',
+      'AWS ECS Fargate',
+      'AWS RDS, S3, SQS',
+      'AWS Secrets Manager',
       'AWS Bedrock',
-      'Cloud Deployment',
+      'Microsoft Azure',
+      'Google Cloud',
+      'BigQuery',
     ],
   },
   {
-    group: 'MLOps & Data',
+    group: 'Integrations',
     items: [
-      'Docker',
-      'MLflow',
-      'CI/CD',
-      'GitHub Actions',
-      'Model Deployment',
-      'Model Monitoring',
-      'Redis',
-      'PostgreSQL',
-      'BigQuery',
+      'Meta WhatsApp Cloud API & Flows',
+      'Resend',
+      'Supabase Auth',
+      'pypdf',
+      'openpyxl',
+      'fpdf2',
     ],
   },
 ]
@@ -277,8 +371,8 @@ export const education = {
   location: 'India',
   period: 'Aug 2022 – Nov 2025',
   details: [
-    'Specialisation in Machine Learning, AI and Robotics',
-    'Industry partnership with TCS and Microsoft',
+    'Specialised in Machine Learning, AI and Robotics',
+    'Industry-partnered programme with TCS and Microsoft',
   ],
 }
 

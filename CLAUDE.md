@@ -27,8 +27,8 @@ There is no lint, test, or formatter setup. `npm run build` is the only automate
 
 **Data contracts worth knowing** (components branch on these):
 - `profile.headlineLines` is an array rendered one line each in the hero; `profile.competencies` feeds the ticker.
-- Experience `stats` entries are either `{ value, prefix?, suffix?, decimals? }` (animated `Counter`) or `{ text }` (static), plus `label` and optional `note`. `highlights` are `{ title, body }` rows.
-- Project `demo` is optional; `stats` may be an empty array; `category` is the eyebrow above the name.
+- `experience` is an ordered list of roles, newest first. `companyUrl` may be `null` (renders plain text). `stats` entries are either `{ value, prefix?, suffix?, decimals? }` (animated `Counter`) or `{ text }` (static), plus `label` and optional `note`; the strip lays out 2, 3 or 4 entries. `highlights` are `{ title, body }` rows.
+- Project `demo` and `repo` links are both optional; `stats` may be an empty array; `category` is the eyebrow above the name.
 - Certification item `url` may be `null` (renders as plain text); `code` is shown on the right when present.
 - A section only appears in the navbar and scroll-spy if its `id` is listed in `navLinks`. Certifications and Education are intentionally not in the nav.
 
