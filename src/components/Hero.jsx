@@ -56,7 +56,7 @@ export default function Hero() {
             {...fade(0.55)}
             className="flex flex-wrap gap-3 md:col-span-5 md:justify-end lg:col-span-6"
           >
-            <a href="#projects" className="btn btn-primary">
+            <a href="#experience" className="btn btn-primary">
               View work
               <ArrowIcon width={17} height={17} className="arrow-right" />
             </a>
