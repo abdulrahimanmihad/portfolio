@@ -124,7 +124,7 @@ export const experience = [
     company: 'HireUp',
     companyUrl: 'https://app.hireup.now/',
     location: 'Japan HQ · Remote',
-    period: 'May 2026 – Jul 2026',
+    period: 'Jan 2026 – Jun 2026',
     summary:
       'Built Alpha, a full-duplex real-time AI voice interviewer, for a technology company headquartered in Japan, working remotely with an international team across time zones.',
     stats: [
