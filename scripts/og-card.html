@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+  Source for public/og-image.png (1200x630). The copy here is hard-coded, so
+  keep it in step with the hero in src/data.js. Render it with:
+    node scripts/og-card.cjs
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: #f4f1ea;
+        color: #1b1915;
+        font-family: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .card {
+        position: relative;
+        width: 1200px;
+        height: 630px;
+        padding: 64px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .eyebrow {
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #6b655d;
+      }
+      .eyebrow.ink { color: #1b1915; }
+      .rule { border-top: 1px solid #d9d3c7; }
+      .top, .bottom { display: flex; justify-content: space-between; align-items: baseline; }
+      .top { padding-bottom: 22px; }
+      .bottom { padding-top: 22px; }
+      h1 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-weight: 400;
+        font-optical-sizing: auto;
+        font-size: 96px;
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+      }
+      h1 em { font-style: italic; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div>
+        <div class="top">
+          <p class="eyebrow ink">Abdul Rahiman Mihad</p>
+          <p class="eyebrow">AI Engineer · Abu Dhabi, UAE</p>
+        </div>
+        <div class="rule"></div>
+      </div>
+      <h1>AI systems that talk,<br />think and <em>ship.</em></h1>
+      <div>
+        <div class="rule"></div>
+        <div class="bottom">
+          <p class="eyebrow">LLM agents · Real-time voice · RAG · MLOps on AWS</p>
+          <p class="eyebrow">abdulrahimanmihad.github.io/portfolio</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

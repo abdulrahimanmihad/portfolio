@@ -9,8 +9,7 @@ import { useTheme } from './hooks'
 const Experience = lazy(() => import('./components/Experience'))
 const Projects = lazy(() => import('./components/Projects'))
 const Skills = lazy(() => import('./components/Skills'))
-const Certifications = lazy(() => import('./components/Certifications'))
-const Education = lazy(() => import('./components/Education'))
+const Background = lazy(() => import('./components/Background'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 
@@ -26,7 +25,7 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-paper"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2.5 focus:text-sm focus:font-medium focus:text-paper"
       >
         Skip to content
       </a>
@@ -40,8 +39,7 @@ export default function App() {
           <Experience />
           <Projects />
           <Skills />
-          <Certifications />
-          <Education />
+          <Background />
           <Contact />
         </Suspense>
       </main>

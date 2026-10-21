@@ -40,21 +40,17 @@ export default function Navbar({ theme, onToggleTheme }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
-          solid ? 'border-line bg-paper/90 backdrop-blur-md' : 'border-transparent'
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-500 ${
+          solid ? 'border-line bg-paper/85 backdrop-blur-md' : 'border-transparent'
         }`}
       >
         <nav className="shell flex h-16 items-center justify-between gap-6" aria-label="Primary">
-          <a
-            href="#top"
-            className="text-[0.8125rem] font-bold uppercase tracking-[0.12em]"
-            aria-label={`${profile.name}, back to top`}
-          >
-            <span className="sm:hidden">A. R. Mihad</span>
+          <a href="#top" className="eyebrow text-ink" aria-label={`${profile.name}, back to top`}>
+            <span className="sm:hidden">{profile.shortName}</span>
             <span className="hidden sm:inline">{profile.name}</span>
           </a>
 
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-9 md:flex">
             {navLinks.map((link) => (
               <li key={link.id}>
                 <a
@@ -72,7 +68,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             <a
               href={profile.cv}
               download
-              className="btn btn-primary mr-2 hidden h-10 px-5 text-[0.8125rem] md:inline-flex"
+              className="btn btn-ghost mr-3 hidden h-10 px-5 md:inline-flex"
             >
               Download CV
             </a>
@@ -80,16 +76,16 @@ export default function Navbar({ theme, onToggleTheme }) {
             <button
               type="button"
               onClick={onToggleTheme}
-              className="grid h-10 w-10 place-items-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink"
+              className="grid h-10 w-10 place-items-center text-muted transition-colors hover:text-ink"
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
             >
-              {theme === 'dark' ? <SunIcon width={18} height={18} /> : <MoonIcon width={18} height={18} />}
+              {theme === 'dark' ? <SunIcon width={17} height={17} /> : <MoonIcon width={17} height={17} />}
             </button>
 
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-alt md:hidden"
+              className="grid h-10 w-10 place-items-center transition-colors hover:text-muted md:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -109,22 +105,22 @@ export default function Navbar({ theme, onToggleTheme }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3 }}
           >
-            <ul className="shell flex flex-col pt-4">
+            <ul className="shell flex flex-col pt-2">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.id}
                   className="border-b border-line"
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.05 + i * 0.05, ease: EASE }}
+                  transition={{ duration: 0.6, delay: 0.05 + i * 0.05, ease: EASE }}
                 >
                   <a
                     href={`#${link.id}`}
                     onClick={() => setOpen(false)}
                     aria-current={active === link.id ? 'true' : undefined}
-                    className="display block py-5 text-4xl"
+                    className="display block py-5 text-5xl"
                   >
                     {link.label}
                   </a>
@@ -133,26 +129,26 @@ export default function Navbar({ theme, onToggleTheme }) {
             </ul>
 
             <motion.div
-              className="shell mt-8 flex flex-col gap-6 pb-12"
+              className="shell mt-10 flex flex-col gap-8 pb-12"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
               <a href={profile.cv} download className="btn btn-primary w-full">
                 Download CV
               </a>
-              <div className="flex gap-6 text-sm">
+              <div className="flex flex-wrap gap-6 text-sm">
                 <a href={profile.linkedin} target="_blank" rel="noreferrer noopener" className="link-arrow">
                   LinkedIn
-                  <ArrowUpRightIcon width={15} height={15} />
+                  <ArrowUpRightIcon width={14} height={14} />
                 </a>
                 <a href={profile.github} target="_blank" rel="noreferrer noopener" className="link-arrow">
                   GitHub
-                  <ArrowUpRightIcon width={15} height={15} />
+                  <ArrowUpRightIcon width={14} height={14} />
                 </a>
                 <a href={`mailto:${profile.email}`} className="link-arrow">
                   Email
-                  <ArrowUpRightIcon width={15} height={15} />
+                  <ArrowUpRightIcon width={14} height={14} />
                 </a>
               </div>
             </motion.div>

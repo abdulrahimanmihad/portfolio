@@ -1,48 +1,54 @@
 import { motion } from 'framer-motion'
-import { useCountUp } from '../hooks'
 
 export const EASE = [0.16, 1, 0.3, 1]
 
-/** Fade-and-rise on scroll. `delay` staggers siblings. */
-export function Reveal({ children, delay = 0, y = 18, className = '', as = 'div' }) {
+/** Slow fade-and-rise on scroll. `delay` staggers siblings. */
+export function Reveal({ children, delay = 0, y = 14, className = '', as = 'div' }) {
   const MotionTag = motion[as] ?? motion.div
   return (
     <MotionTag
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15, margin: '0px 0px -40px 0px' }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
+      viewport={{ once: true, amount: 0.2, margin: '0px 0px -60px 0px' }}
+      transition={{ duration: 1, delay, ease: EASE }}
     >
       {children}
     </MotionTag>
   )
 }
 
+/** Sets the text between asterisks in italics: "think and *ship.*" */
+export function Emph({ text }) {
+  return text
+    .split('*')
+    .map((part, i) => (i % 2 ? <em key={i}>{part}</em> : <span key={i}>{part}</span>))
+}
+
 /**
  * Section shell: a ruled header on a 12-column grid with the label in the
  * left three columns and the title in the remaining nine. Content follows.
  */
-export function Section({ id, index, label, title, lead, children, alt = false, className = '' }) {
+export function Section({ id, index, label, title, lead, children, className = '' }) {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`py-20 sm:py-24 lg:py-32 ${alt ? 'bg-alt' : ''} ${className}`}
+      className={`py-24 sm:py-28 lg:py-32 ${className}`}
     >
       <div className="shell">
         <Reveal>
-          <div className="grid gap-5 border-t border-line pt-5 lg:grid-cols-12 lg:gap-8">
-            <p className="eyebrow flex gap-3 lg:col-span-3">
-              {index && <span className="tabular-nums">{index}</span>}
+          <div className="grid gap-6 border-t border-line pt-6 lg:grid-cols-12 lg:gap-8">
+            <p className="eyebrow flex gap-4 lg:col-span-3">
+              {index && <span>{index}</span>}
               <span>{label}</span>
             </p>
             <div className="lg:col-span-9">
-              <h2 id={`${id}-heading`} className="display text-[clamp(2.25rem,5.5vw,4.5rem)]">
-                {title}
+              <h2 id={`${id}-heading`} className="display text-[clamp(2.5rem,5vw,4.5rem)]">
+                <Emph text={title} />
               </h2>
               {lead && (
-                <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
                   {lead}
                 </p>
               )}
@@ -55,48 +61,13 @@ export function Section({ id, index, label, title, lead, children, alt = false, 
   )
 }
 
-/** Counts up when scrolled into view. */
-export function Counter({ value, prefix = '', suffix = '', decimals = 0, className = '' }) {
-  const { ref, value: current } = useCountUp(value, { decimals })
-  const text = current.toLocaleString('en-US', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
+/** A large serif figure with its caption. */
+export function Stat({ value, label, note }) {
   return (
-    <span ref={ref} className={className}>
-      {prefix}
-      {text}
-      {suffix}
-    </span>
-  )
-}
-
-export function Tag({ children }) {
-  return <li className="chip">{children}</li>
-}
-
-/** Continuous ticker of short phrases. Falls back to a wrapped list under reduced motion. */
-export function Marquee({ items, label = 'Core competencies', className = '' }) {
-  const list = (hidden) => (
-    <ul className="flex shrink-0 items-center gap-10 sm:gap-14" aria-hidden={hidden || undefined}>
-      {items.map((item) => (
-        <li
-          key={item}
-          className="flex items-center gap-10 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] sm:gap-14"
-        >
-          <span>{item}</span>
-          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink" />
-        </li>
-      ))}
-    </ul>
-  )
-
-  return (
-    <div className={`marquee border-y border-line py-4 ${className}`} role="region" aria-label={label}>
-      <div className="marquee-track">
-        {list(false)}
-        {list(true)}
-      </div>
+    <div className="border-l border-line pl-5 sm:pl-6">
+      <p className="numeral text-[clamp(2.75rem,4.5vw,4rem)]">{value}</p>
+      <p className="mt-3 text-sm font-medium leading-snug">{label}</p>
+      {note && <p className="mt-1 text-sm text-muted">{note}</p>}
     </div>
   )
 }

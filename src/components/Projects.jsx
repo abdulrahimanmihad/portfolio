@@ -1,28 +1,22 @@
 import { projects } from '../data'
-import { Counter, Reveal, Section, Tag } from './ui'
+import { Reveal, Section } from './ui'
 import { ArrowUpRightIcon } from './icons'
 
 export default function Projects() {
   return (
-    <Section
-      id="projects"
-      index="03"
-      label="Projects"
-      title="Selected work."
-      lead="Generative AI, computer vision and deep learning. Two of the three are live and open to try."
-    >
+    <Section id="projects" index="03" label="Work" title="Selected *work.*">
       <div className="border-t border-line">
         {projects.map((project, i) => (
           <Reveal
             key={project.name}
             as="article"
-            className="grid gap-8 border-b border-line py-10 sm:py-14 lg:grid-cols-12 lg:gap-8"
+            className="grid gap-6 border-b border-line py-12 sm:py-16 lg:grid-cols-12 lg:gap-8"
           >
-            <p className="eyebrow tabular-nums lg:col-span-1">0{i + 1}</p>
+            <p className="eyebrow lg:col-span-1">0{i + 1}</p>
 
             <div className="lg:col-span-5">
-              <p className="eyebrow mb-4">{project.category}</p>
-              <h3 className="display text-[clamp(1.75rem,3.2vw,2.5rem)]">{project.name}</h3>
+              <p className="eyebrow">{project.category}</p>
+              <h3 className="display mt-4 text-[clamp(1.9rem,3.2vw,2.75rem)]">{project.name}</h3>
               {(project.demo || project.repo) && (
                 <div className="mt-6 flex flex-wrap gap-6 text-sm">
                   {project.demo && (
@@ -33,7 +27,7 @@ export default function Projects() {
                       className="link-arrow"
                     >
                       Live demo
-                      <ArrowUpRightIcon width={15} height={15} />
+                      <ArrowUpRightIcon width={14} height={14} />
                     </a>
                   )}
                   {project.repo && (
@@ -44,7 +38,7 @@ export default function Projects() {
                       className="link-arrow"
                     >
                       GitHub
-                      <ArrowUpRightIcon width={15} height={15} />
+                      <ArrowUpRightIcon width={14} height={14} />
                     </a>
                   )}
                 </div>
@@ -54,33 +48,18 @@ export default function Projects() {
             <div className="lg:col-span-6">
               <p className="text-base leading-relaxed sm:text-lg">{project.blurb}</p>
 
-              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted sm:text-[0.9375rem]">
-                {project.points.map((point) => (
-                  <li key={point} className="flex gap-4">
-                    <span aria-hidden="true" className="mt-[0.8em] h-px w-4 shrink-0 bg-muted" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
               {project.stats.length > 0 && (
-                <dl className="mt-8 flex flex-wrap gap-x-12 gap-y-6 border-t border-line pt-6">
+                <dl className="mt-8 flex flex-wrap gap-x-12 gap-y-6">
                   {project.stats.map((s) => (
-                    <div key={s.label}>
-                      <dd className="display text-3xl tabular-nums sm:text-4xl">
-                        <Counter value={s.value} suffix={s.suffix} />
-                      </dd>
+                    <div key={s.label} className="flex flex-col-reverse">
                       <dt className="mt-2 text-sm text-muted">{s.label}</dt>
+                      <dd className="numeral text-4xl sm:text-5xl">{s.value}</dd>
                     </div>
                   ))}
                 </dl>
               )}
 
-              <ul className="mt-8 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </ul>
+              <p className="mt-8 text-sm text-muted">{project.tags.join(', ')}</p>
             </div>
           </Reveal>
         ))}

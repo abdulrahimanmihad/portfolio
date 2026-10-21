@@ -1,23 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const THEME_KEY = 'ui-theme'
-
-export function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const onChange = (e) => setReduced(e.matches)
-    query.addEventListener('change', onChange)
-    return () => query.removeEventListener('change', onChange)
-  }, [])
-
-  return reduced
-}
+// Mirrors --bg in index.css for the browser chrome.
+const THEME_COLOR = { light: '#f4f1ea', dark: '#141311' }
 
 /**
  * Light by default. Dark only when the visitor has toggled it, which is the
@@ -35,7 +20,7 @@ export function useTheme() {
     document.documentElement.classList.toggle('dark', theme === 'dark')
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#0a0a0a' : '#ffffff')
+      ?.setAttribute('content', THEME_COLOR[theme])
   }, [theme])
 
   const toggle = useCallback(() => {
@@ -51,63 +36,6 @@ export function useTheme() {
   }, [])
 
   return { theme, toggle }
-}
-
-/** Counts from 0 to `target` once the element scrolls into view. */
-export function useCountUp(target, { duration = 1400, decimals = 0 } = {}) {
-  const reduced = usePrefersReducedMotion()
-  const ref = useRef(null)
-  const [value, setValue] = useState(reduced ? target : 0)
-
-  useEffect(() => {
-    const node = ref.current
-    if (!node || reduced) {
-      setValue(target)
-      return undefined
-    }
-
-    let frame = 0
-    let settle = 0
-    let start = 0
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        observer.disconnect()
-
-        const step = (now) => {
-          if (!start) start = now
-          const progress = Math.min((now - start) / duration, 1)
-          // Ease-out cubic: fast first, settles on the final number.
-          const eased = 1 - Math.pow(1 - progress, 3)
-          if (progress < 1) {
-            setValue(Number((target * eased).toFixed(decimals)))
-            frame = requestAnimationFrame(step)
-          } else {
-            setValue(target)
-          }
-        }
-        frame = requestAnimationFrame(step)
-
-        // requestAnimationFrame stalls while the tab is backgrounded, which
-        // would otherwise strand the number mid-count. Land it either way.
-        settle = setTimeout(() => {
-          cancelAnimationFrame(frame)
-          setValue(target)
-        }, duration + 250)
-      },
-      { threshold: 0.4 },
-    )
-
-    observer.observe(node)
-    return () => {
-      observer.disconnect()
-      cancelAnimationFrame(frame)
-      clearTimeout(settle)
-    }
-  }, [target, duration, decimals, reduced])
-
-  return { ref, value }
 }
 
 /**
