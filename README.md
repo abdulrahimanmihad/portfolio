@@ -18,7 +18,7 @@ Live site: https://abdulrahimanmihad.github.io/portfolio/
 | Hosting    | GitHub Pages (static, built from `dist/`) |
 
 No CSS framework config file is needed — Tailwind 4 reads its theme from the `@theme`
-blocks at the top of `src/index.css`.
+block at the top of `src/index.css`.
 
 ## Running locally
 
@@ -37,7 +37,7 @@ npm run preview  # serve the production build locally
 ## Project layout
 
 ```
-index.html              SEO/Open Graph metadata, fonts, no-flash theme script
+index.html              SEO/Open Graph metadata and fonts
 public/
   favicon.svg           AM monogram (flips black/white with the OS colour scheme)
   og-image.png          1200x630 social preview card (rendered from scripts/)
@@ -47,20 +47,22 @@ scripts/
   og-card.cjs           Renders og-card.html to public/og-image.png with headless Chrome
 src/
   data.js               All site content lives here; edit this to update the site
-  hooks.js              Theme and scroll-spy hooks
-  App.jsx               Page composition; below-fold sections are lazy-loaded
-  index.css             Design tokens, light/dark variables, component classes
+  hooks.js              Scroll-spy hook for the section index
+  App.jsx               Two-column composition; below-fold sections are lazy-loaded
+  index.css             Palette tokens, type classes, buttons
   components/
     ui.jsx              Reveal / Section / Stat / Emph primitives
     icons.jsx           Inline SVG icon set (no icon library dependency)
-    Navbar.jsx Hero.jsx About.jsx Experience.jsx Projects.jsx
-    Skills.jsx Background.jsx Contact.jsx Footer.jsx
+    Panel.jsx           Fixed identity column: statement, actions, section index
+    MobileBar.jsx       Sticky wordmark bar and menu below the lg breakpoint
+    About.jsx Experience.jsx Projects.jsx Skills.jsx
+    Background.jsx Contact.jsx Footer.jsx
 ```
 
 ### Editing content
 
 Almost everything visible on the page comes from `src/data.js` — profile details,
-the hero statement, experience figures and highlights, projects, certification links,
+the statement, experience figures and highlights, projects, certification links,
 capability lines, education and languages. Components read from it, so text changes
 rarely require touching JSX. Wrap a word in asterisks (`*ship.*`) to set it in italics.
 
@@ -71,23 +73,24 @@ every "Download CV" button already points there.
 
 ### Social preview card
 
-`public/og-image.png` is rendered from `scripts/og-card.html`. After changing the hero
-copy, update that file and run `node scripts/og-card.cjs` (needs a local Chrome and
-network access for the fonts).
+`public/og-image.png` is rendered from `scripts/og-card.html`. After changing the
+statement, update that file and run `node scripts/og-card.cjs` (needs a local Chrome
+and network access for the fonts).
 
 ## Design notes
 
-- **Look**: quiet luxury editorial. A Newsreader serif in sentence case with italic
-  emphasis for headings, Archivo for text and small tracked labels, warm paper and ink,
-  hairline rules instead of cards, square hairline buttons, and a 12-column
-  label/content grid with generous space.
-- **Theme**: light by default with a dark toggle. The choice is stored in `localStorage`
-  only when the visitor toggles it, and applied before first paint by an inline script
-  so there is no flash.
-- **Colour**: no accent colour. Everything is ink on paper, defined once as semantic
-  variables (`--bg`, `--text`, `--border`, ...) that flip per theme.
-- **Motion**: hero lines and sections fade up slowly on scroll; nothing bounces, ticks
-  or counts. All of it collapses to static content under `prefers-reduced-motion: reduce`.
+- **Composition**: a two-column dossier. The deep-green identity panel on the left
+  stays fixed with the name, statement, actions and a live section index; the ivory
+  column on the right scrolls, and each section is a folio with a large brass numeral
+  in its gutter. On phones the panel becomes the opening screen and a slim bar
+  carries the menu.
+- **Palette**: deep green, ivory, sage and brass. One palette, no theme toggle,
+  defined once as tokens in `src/index.css`.
+- **Type**: Newsreader serif in sentence case with one italic word for headings and
+  figures, Archivo for text and tracked small-caps labels.
+- **Motion**: the panel fades in once; sections fade up slowly on scroll. Nothing
+  bounces, ticks or counts, and all of it collapses to static content under
+  `prefers-reduced-motion: reduce`.
 - **Performance**: below-the-fold sections are code-split into separate chunks;
   icons are inline SVG rather than an icon package.
 - **Base path**: `vite.config.js` uses `base: './'`, so the same build works on

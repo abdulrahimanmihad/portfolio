@@ -2,28 +2,29 @@ import { about } from '../data'
 import { Reveal, Section } from './ui'
 
 export default function About() {
+  const [lede, ...rest] = about.paragraphs
+
   return (
     <Section id="about" index="01" label="Profile" title="Built for *production.*">
-      <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
-        <div className="space-y-6 lg:col-span-5 lg:col-start-4">
-          {about.paragraphs.map((p, i) => (
-            <Reveal key={i} delay={i * 0.08} as="p" className="text-base leading-[1.75] sm:text-lg">
-              {p}
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.12} className="lg:col-span-3 lg:col-start-10">
-          <dl className="border-t border-line">
-            {about.facts.map((fact) => (
-              <div key={fact.label} className="border-b border-line py-4">
-                <dt className="eyebrow">{fact.label}</dt>
-                <dd className="mt-1.5 text-sm font-medium leading-relaxed">{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
+      <Reveal as="p" className="lede">
+        {lede}
+      </Reveal>
+      {rest.map((p, i) => (
+        <Reveal key={i} as="p" delay={0.08 + i * 0.05} className="mt-6 leading-[1.75] text-muted">
+          {p}
         </Reveal>
-      </div>
+      ))}
+
+      <Reveal delay={0.15} className="mt-12">
+        <dl className="grid gap-x-8 gap-y-6 border-t border-line pt-6 sm:grid-cols-2">
+          {about.facts.map((fact) => (
+            <div key={fact.label}>
+              <dt className="eyebrow">{fact.label}</dt>
+              <dd className="mt-1.5 text-[0.9375rem] font-medium leading-relaxed">{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
     </Section>
   )
 }

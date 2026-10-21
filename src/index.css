@@ -1,67 +1,52 @@
 @import 'tailwindcss';
 
-/* Class-based dark mode: the <html> element carries `.dark`. */
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --font-sans: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-/*
- * Semantic colours resolve at the element, so the same utility class is
- * correct in light mode and dark mode.
- */
-@theme inline {
-  --color-ink: var(--text);
-  --color-paper: var(--bg);
-  --color-alt: var(--bg-alt);
-  --color-muted: var(--text-muted);
-  --color-line: var(--border);
-}
+  /* Ivory dossier: the scrolling content column. */
+  --color-paper: #f4f0e6;
+  --color-ink: #15211d;
+  --color-muted: #5f6a64;
+  --color-line: #dad3c2;
+  --color-accent: #7a6134;
 
-/* Warm paper and ink. No accent colour. */
-:root {
-  color-scheme: light;
-  --bg: #f4f1ea;
-  --bg-alt: #ece8df;
-  --border: #d9d3c7;
-  --text: #1b1915;
-  --text-muted: #6b655d;
-}
-
-.dark {
-  color-scheme: dark;
-  --bg: #141311;
-  --bg-alt: #1b1916;
-  --border: #2e2a25;
-  --text: #ece7dd;
-  --text-muted: #9c958b;
+  /* Deep green panel: the fixed identity column. */
+  --color-panel: #0d1f1b;
+  --color-ivory: #f2ecdf;
+  --color-sage: #9db0a6;
+  --color-brass: #c4a368;
+  --color-panel-line: rgb(242 236 223 / 0.16);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Offset anchor scrolling for the fixed navbar. */
-    scroll-padding-top: 4rem;
+    /* Offset anchor scrolling for the sticky mobile bar. */
+    scroll-padding-top: 3.5rem;
     -webkit-text-size-adjust: 100%;
   }
 
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 0;
+    }
+  }
+
   body {
-    background-color: var(--bg);
-    color: var(--text);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   ::selection {
-    background-color: var(--text);
-    color: var(--bg);
+    background-color: var(--color-ink);
+    color: var(--color-paper);
   }
 
   :focus-visible {
@@ -84,34 +69,14 @@
 }
 
 @layer components {
-  /* Page container: wide and airy. */
-  .shell {
-    width: 100%;
-    max-width: 88rem;
-    margin-inline: auto;
-    padding-inline: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .shell {
-      padding-inline: 2.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .shell {
-      padding-inline: 4rem;
-    }
-  }
-
-  /* Editorial serif for headings. Sentence case, regular weight, italics for emphasis. */
+  /* Serif for headings. Sentence case, regular weight, italics for emphasis. */
   .display {
     font-family: var(--font-serif);
     font-weight: 400;
     font-optical-sizing: auto;
     font-variant-numeric: lining-nums;
     letter-spacing: -0.015em;
-    line-height: 1.05;
+    line-height: 1.08;
     text-wrap: balance;
   }
 
@@ -119,7 +84,7 @@
     font-style: italic;
   }
 
-  /* Large figures set in the serif. */
+  /* Serif for large figures and folio numbers. */
   .numeral {
     font-family: var(--font-serif);
     font-weight: 400;
@@ -129,6 +94,22 @@
     letter-spacing: -0.02em;
   }
 
+  /* Opening paragraph of a section, set in the serif. */
+  .lede {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-size: 1.375rem;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+  }
+
+  @media (min-width: 640px) {
+    .lede {
+      font-size: 1.5rem;
+    }
+  }
+
   /* Small tracked label. */
   .eyebrow {
     font-size: 0.6875rem;
@@ -136,10 +117,10 @@
     text-transform: uppercase;
     letter-spacing: 0.18em;
     line-height: 1.5;
-    color: var(--text-muted);
+    color: var(--color-muted);
   }
 
-  /* Square, hairline-bordered button with tracked caps. Primary inverts on hover. */
+  /* Square, hairline-bordered button in tracked caps. Solid variants invert on hover. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -147,7 +128,7 @@
     gap: 0.75rem;
     height: 3.25rem;
     padding-inline: 1.75rem;
-    border: 1px solid var(--text);
+    border: 1px solid currentColor;
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.18em;
@@ -159,23 +140,35 @@
       border-color 0.35s ease;
   }
 
-  .btn-primary {
-    background-color: var(--text);
-    color: var(--bg);
+  .btn-ivory {
+    background-color: var(--color-ivory);
+    border-color: var(--color-ivory);
+    color: var(--color-panel);
   }
 
-  .btn-primary:hover {
+  .btn-ivory:hover {
     background-color: transparent;
-    color: var(--text);
+    color: var(--color-ivory);
   }
 
-  .btn-ghost {
-    border-color: var(--border);
-    color: var(--text);
+  .btn-outline {
+    border-color: var(--color-panel-line);
+    color: var(--color-ivory);
   }
 
-  .btn-ghost:hover {
-    border-color: var(--text);
+  .btn-outline:hover {
+    border-color: var(--color-ivory);
+  }
+
+  .btn-ink {
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .btn-ink:hover {
+    background-color: transparent;
+    color: var(--color-ink);
   }
 
   /* Text link with a hairline underline that darkens on hover. */
@@ -185,7 +178,7 @@
     gap: 0.3rem;
     text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-decoration-color: var(--border);
+    text-decoration-color: var(--color-line);
     text-underline-offset: 0.3em;
     transition: text-decoration-color 0.3s ease;
   }
@@ -205,41 +198,5 @@
 
   .link-arrow:hover svg {
     transform: translate(2px, -2px);
-  }
-
-  /* Navbar link with a drawn hairline. */
-  .nav-link {
-    position: relative;
-    display: inline-block;
-    padding-block: 0.25rem;
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    transition: color 0.25s ease;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2px;
-    height: 1px;
-    background-color: var(--text);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s var(--ease-out-expo);
-  }
-
-  .nav-link:hover,
-  .nav-link[aria-current] {
-    color: var(--text);
-  }
-
-  .nav-link:hover::after,
-  .nav-link[aria-current]::after {
-    transform: scaleX(1);
   }
 }

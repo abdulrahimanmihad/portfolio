@@ -1,11 +1,10 @@
 import { Suspense, lazy } from 'react'
 import { MotionConfig } from 'framer-motion'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
+import MobileBar from './components/MobileBar'
+import Panel from './components/Panel'
 import About from './components/About'
-import { useTheme } from './hooks'
 
-// Below-the-fold sections load as separate chunks after the hero paints.
+// Below-the-fold sections load as separate chunks after the panel paints.
 const Experience = lazy(() => import('./components/Experience'))
 const Projects = lazy(() => import('./components/Projects'))
 const Skills = lazy(() => import('./components/Skills'))
@@ -19,8 +18,6 @@ function Placeholder() {
 }
 
 export default function App() {
-  const { theme, toggle } = useTheme()
-
   return (
     <MotionConfig reducedMotion="user">
       <a
@@ -30,23 +27,26 @@ export default function App() {
         Skip to content
       </a>
 
-      <Navbar theme={theme} onToggleTheme={toggle} />
+      <MobileBar />
 
-      <main id="main">
-        <Hero />
-        <About />
-        <Suspense fallback={<Placeholder />}>
-          <Experience />
-          <Projects />
-          <Skills />
-          <Background />
-          <Contact />
-        </Suspense>
-      </main>
+      {/* Two columns from lg: the identity panel stays put, the dossier scrolls. */}
+      <div className="lg:grid lg:grid-cols-[minmax(22rem,38%)_minmax(0,1fr)] lg:items-start">
+        <Panel />
 
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+        <main id="main" className="bg-paper">
+          <About />
+          <Suspense fallback={<Placeholder />}>
+            <Experience />
+            <Projects />
+            <Skills />
+            <Background />
+            <Contact />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </main>
+      </div>
     </MotionConfig>
   )
 }

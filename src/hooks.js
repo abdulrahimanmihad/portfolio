@@ -1,45 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-
-const THEME_KEY = 'ui-theme'
-// Mirrors --bg in index.css for the browser chrome.
-const THEME_COLOR = { light: '#f4f1ea', dark: '#141311' }
+import { useEffect, useState } from 'react'
 
 /**
- * Light by default. Dark only when the visitor has toggled it, which is the
- * only time the preference is written to storage.
- */
-export function useTheme() {
-  const [theme, setTheme] = useState(() =>
-    typeof document !== 'undefined' &&
-    document.documentElement.classList.contains('dark')
-      ? 'dark'
-      : 'light',
-  )
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', THEME_COLOR[theme])
-  }, [theme])
-
-  const toggle = useCallback(() => {
-    setTheme((t) => {
-      const next = t === 'dark' ? 'light' : 'dark'
-      try {
-        localStorage.setItem(THEME_KEY, next)
-      } catch {
-        /* storage unavailable: the toggle still works for this session */
-      }
-      return next
-    })
-  }, [])
-
-  return { theme, toggle }
-}
-
-/**
- * Tracks which section owns the viewport, for navbar highlighting.
+ * Tracks which section owns the viewport, for the panel index.
  * Driven by scroll position rather than IntersectionObserver: sections
  * differ widely in height, and a plain position test stays predictable
  * (and copes with lazy sections mounting after first paint).
@@ -52,7 +14,7 @@ export function useActiveSection(ids) {
 
     const measure = () => {
       frame = 0
-      // The line just below the fixed navbar decides the active section.
+      // The line just below the top of the viewport decides the active section.
       const line = window.scrollY + 96
       let current = ''
 

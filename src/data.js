@@ -10,18 +10,20 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/abdul-rahiman-mihad/',
   github: 'https://github.com/abdulrahimanmihad',
   cv: './cv.pdf',
-  // Hero statement, one line each. Text between asterisks is set in italics.
-  headlineLines: ['AI systems that talk,', 'think and *ship.*'],
+  // Panel statement. Text between asterisks is set in italics.
+  headline: 'AI systems that talk, think and *ship.*',
   subline:
     'Founder of Vendoor, building the LLM agents, messaging and cloud infrastructure behind a B2B procurement platform for the UAE. Before that, real-time voice AI at HireUp.',
 }
 
+// The panel index. Order must match the section order in App.jsx.
 export const navLinks = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Work' },
-  { id: 'skills', label: 'Capabilities' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'about', index: '01', label: 'Profile' },
+  { id: 'experience', index: '02', label: 'Experience' },
+  { id: 'projects', index: '03', label: 'Work' },
+  { id: 'skills', index: '04', label: 'Capabilities' },
+  { id: 'background', index: '05', label: 'Background' },
+  { id: 'contact', index: '06', label: 'Contact' },
 ]
 
 export const about = {

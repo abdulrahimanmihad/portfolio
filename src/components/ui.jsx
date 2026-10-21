@@ -26,36 +26,29 @@ export function Emph({ text }) {
 }
 
 /**
- * Section shell: a ruled header on a 12-column grid with the label in the
- * left three columns and the title in the remaining nine. Content follows.
+ * A folio in the dossier column: a large brass numeral in the left gutter,
+ * then label, title and content in a reading-width column.
  */
-export function Section({ id, index, label, title, lead, children, className = '' }) {
+export function Section({ id, index, label, title, children, className = '' }) {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`py-24 sm:py-28 lg:py-32 ${className}`}
+      className={`border-b border-line px-6 py-20 sm:px-10 lg:px-16 lg:py-24 xl:px-24 ${className}`}
     >
-      <div className="shell">
-        <Reveal>
-          <div className="grid gap-6 border-t border-line pt-6 lg:grid-cols-12 lg:gap-8">
-            <p className="eyebrow flex gap-4 lg:col-span-3">
-              {index && <span>{index}</span>}
-              <span>{label}</span>
-            </p>
-            <div className="lg:col-span-9">
-              <h2 id={`${id}-heading`} className="display text-[clamp(2.5rem,5vw,4.5rem)]">
-                <Emph text={title} />
-              </h2>
-              {lead && (
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-                  {lead}
-                </p>
-              )}
-            </div>
-          </div>
+      <div className="mx-auto max-w-[54rem] sm:grid sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-x-6 lg:grid-cols-[5.5rem_minmax(0,1fr)]">
+        <Reveal as="p" className="numeral text-[2.25rem] text-accent sm:pt-1">
+          {index}
         </Reveal>
-        <div className="mt-14 sm:mt-20">{children}</div>
+        <div className="mt-6 max-w-[42rem] sm:mt-0">
+          <Reveal>
+            <p className="eyebrow">{label}</p>
+            <h2 id={`${id}-heading`} className="display mt-3 text-[clamp(2rem,3vw,2.75rem)]">
+              <Emph text={title} />
+            </h2>
+          </Reveal>
+          <div className="mt-10 sm:mt-12">{children}</div>
+        </div>
       </div>
     </section>
   )
@@ -64,10 +57,10 @@ export function Section({ id, index, label, title, lead, children, className = '
 /** A large serif figure with its caption. */
 export function Stat({ value, label, note }) {
   return (
-    <div className="border-l border-line pl-5 sm:pl-6">
-      <p className="numeral text-[clamp(2.75rem,4.5vw,4rem)]">{value}</p>
-      <p className="mt-3 text-sm font-medium leading-snug">{label}</p>
-      {note && <p className="mt-1 text-sm text-muted">{note}</p>}
+    <div>
+      <p className="numeral text-[2.75rem] sm:text-[3.25rem]">{value}</p>
+      <p className="mt-2 text-sm font-medium leading-snug">{label}</p>
+      {note && <p className="mt-0.5 text-sm text-muted">{note}</p>}
     </div>
   )
 }
